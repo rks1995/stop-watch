@@ -11,23 +11,36 @@ let minuteHand = 0;
 let ms = 0;
 let clearTimer;
 
+//start count is to prevent running the setInterval frequently;
+let startCount = 0;
+let isPause = false;
+let isStart = false;
+
 const startTimer = () => {
-  clearTimer = setInterval(() => {
-    if (ms > 60) {
-      ms = 0;
-      secondHand++;
-      if (secondHand > 59) {
-        secondHand = 0;
-        minuteHand++;
-        minutes.innerText =
-          minuteHand < 10 ? '0' + minuteHand + ' : ' : minuteHand + ' : ';
+  startCount++;
+  isStart = true;
+  isPause = isPause && false;
+
+  if (isStart && startCount == 1) {
+    clearTimer = setInterval(() => {
+      if (!isPause) {
+        if (ms > 59) {
+          ms = 0;
+          secondHand++;
+          if (secondHand > 59) {
+            secondHand = 0;
+            minuteHand++;
+            minutes.innerText =
+              minuteHand < 10 ? '0' + minuteHand + ' : ' : minuteHand + ' : ';
+          }
+          seconds.innerText =
+            secondHand < 10 ? '0' + secondHand + ' : ' : secondHand + ' : ';
+        }
+        milli.innerText = ms < 10 ? '0' + ms : ms;
+        ms++;
       }
-      seconds.innerText =
-        secondHand < 10 ? '0' + secondHand + ' : ' : secondHand + ' : ';
-    }
-    milli.innerText = ms < 10 ? '0' + ms : ms;
-    ms++;
-  }, 10);
+    }, 18);
+  }
 };
 
 const resetTimer = () => {
@@ -35,8 +48,13 @@ const resetTimer = () => {
   seconds.innerText = '00 : ';
   milli.innerText = '00';
   minuteHand = secondHand = ms = 0;
+  isStart = isPause = false;
+  startCount = 0;
   clearInterval(clearTimer);
 };
 
 startBtn.addEventListener('click', startTimer);
+pauseBtn.addEventListener('click', () => {
+  isPause = true;
+});
 resetBtn.addEventListener('click', resetTimer);
