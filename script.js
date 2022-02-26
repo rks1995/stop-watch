@@ -14,14 +14,12 @@ let clearTimer;
 //start count is to prevent running the setInterval frequently;
 let startCount = 0;
 let isPause = false;
-let isStart = false;
 
 const startTimer = () => {
   startCount++;
-  isStart = true;
   isPause = isPause && false;
 
-  if (isStart && startCount == 1) {
+  if (startCount == 1) {
     clearTimer = setInterval(() => {
       if (!isPause) {
         if (ms > 59) {
@@ -44,12 +42,17 @@ const startTimer = () => {
 };
 
 const resetTimer = () => {
+  if (startCount) {
+    let audio = new Audio('assets/sound/resetSound.wav');
+    audio.play();
+  }
   minutes.innerText = '00 : ';
   seconds.innerText = '00 : ';
   milli.innerText = '00';
   minuteHand = secondHand = ms = 0;
-  isStart = isPause = false;
+  isPause = false;
   startCount = 0;
+
   clearInterval(clearTimer);
 };
 
