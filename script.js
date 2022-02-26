@@ -29,10 +29,10 @@ const startTimer = () => {
             secondHand = 0;
             minuteHand++;
             minutes.innerText =
-              minuteHand < 10 ? '0' + minuteHand + ' : ' : minuteHand + ' : ';
+              minuteHand < 10 ? '0' + minuteHand + ':' : minuteHand + ':';
           }
           seconds.innerText =
-            secondHand < 10 ? '0' + secondHand + ' : ' : secondHand + ' : ';
+            secondHand < 10 ? '0' + secondHand + ':' : secondHand + ':';
         }
         milli.innerText = ms < 10 ? '0' + ms : ms;
         ms++;
@@ -46,8 +46,8 @@ const resetTimer = () => {
     let audio = new Audio('assets/sound/resetSound.wav');
     audio.play();
   }
-  minutes.innerText = '00 : ';
-  seconds.innerText = '00 : ';
+  minutes.innerText = '00:';
+  seconds.innerText = '00:';
   milli.innerText = '00';
   minuteHand = secondHand = ms = 0;
   isPause = false;
