@@ -11,6 +11,7 @@ let minuteHand = 0;
 let ms = 0;
 let clearTimer;
 
+//flag variables
 //start count is to prevent running the setInterval frequently;
 let startCount = 0;
 let isPause = false;
